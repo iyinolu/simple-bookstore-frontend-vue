@@ -1,5 +1,8 @@
 <template>
   <form class="form">
+    <div class="go-back">
+      <button @click="onGoBack()">Go Back</button>
+    </div>
     <fieldset>
       <label>Book Title</label>
       <input v-model="name" placeholder="Enter Book Title" />
@@ -14,18 +17,24 @@
       <label>Author</label>
       <select v-model="author">
         <option disabled value="">Please select an author</option>
-        <option value="1">Ben Carson</option>
-        <option value="2">Michelle Obama</option>
-        <option value="3">Steve Havey</option>
+        <option
+          :key="author.id"
+          v-for="author in store.authors.reverse()"
+          :value="author.id"
+        >
+          {{ `${author.first_name} ${author.last_name}` }}
+        </option>
       </select>
       <span v-if="errorMsg.author">{{ errorMsg.author }}</span>
     </fieldset>
-    <button @click="addBook" type="button">Show</button>
+    <button @click="addBook" type="button">Add</button>
   </form>
 </template>
 
 <script>
 import { store } from "../store.js";
+import router from "@/router";
+import services from "../services";
 export default {
   name: "BookForm",
   data() {
@@ -42,13 +51,6 @@ export default {
     };
   },
   methods: {
-    testForm() {
-      console.log({
-        store: this.name,
-        isbn: this.isbn,
-        author: this.author ? parseInt(this.author) : -1,
-      });
-    },
     validate() {
       let isValid = true;
 
@@ -74,28 +76,29 @@ export default {
     },
 
     async addBook() {
-      console.log(this.validate());
       if (this.validate()) {
-        try {
-          let response = await fetch(
-            "https://simple-bookstore-test.herokuapp.com/api/book",
-            {
-              method: "POST",
-              body: JSON.stringify({
-                name: this.name,
-                isbn: this.isbn,
-                author_id: parseInt(this.author),
-              }),
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          );
-          this.bookList = await response.json();
-        } catch (error) {
-          console.log(error);
-        }
+        let data = {
+          name: this.name,
+          isbn: this.isbn,
+          author_id: parseInt(this.author),
+        };
+        services
+          .postBook(data)
+          .then((res) => res.json())
+          .then((response) => {
+            store.updateBooks(response);
+            this.resetForm();
+          })
+          .catch((err) => console.log(err));
       }
+    },
+    onGoBack() {
+      router.push({ name: "Home" });
+    },
+    resetForm() {
+      this.name = "";
+      this.isbn = "";
+      this.author = "";
     },
   },
 };
@@ -131,5 +134,13 @@ label {
 fieldset span {
   font-size: 12px;
   color: tomato;
+}
+.go-back {
+  display: flex;
+  justify-content: center;
+}
+.go-back button {
+  margin: 10px;
+  height: 34px;
 }
 </style>
