@@ -50,6 +50,7 @@ body {
   margin: 0 auto;
   min-height: 100vh;
   padding: 13px;
+  padding-bottom: 98px;
 }
 
 .app-center-container h1 {
