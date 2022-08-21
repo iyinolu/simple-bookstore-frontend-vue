@@ -1,16 +1,7 @@
 <template>
   <div class="app-center-container">
     <h1>📚 BOOKSTORE PORTAL 📚</h1>
-    <div class="app-actions">
-      <button>View Books</button>
-      <button>View Authors</button>
-    </div>
-    <div class="book-list">
-      <div class="book-card">
-        <h2 class="book-title"><span>📔</span> Book Title</h2>
-        <p>Book Author</p>
-      </div>
-    </div>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -18,6 +9,17 @@
 export default {
   name: "App",
   components: {},
+  data() {
+    return {
+      bookData: [],
+      book: {},
+    };
+  },
+  methods: {
+    setBookDetails(data) {
+      this.book = data;
+    },
+  },
 };
 </script>
 
@@ -64,19 +66,5 @@ body {
 .app-actions button {
   margin: 10px;
   height: 34px;
-}
-
-.book-card {
-  width: 400px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  min-height: 86px;
-  align-items: flex-start;
-  background: #efefef;
-  border: 1px solid #d0d0d0;
-  padding: 20px;
-  box-sizing: border-box;
-  border-radius: 8px;
 }
 </style>
