@@ -1,13 +1,13 @@
 <template>
   <div class="app-actions">
-    <button @click="onAddBook()">Add Book</button>
-    <button @click="onShowAuthors()">View Authors</button>
+    <button @click="onAddBook">Add Book</button>
+    <button @click="onShowAuthors">View Authors</button>
   </div>
   <div class="book-list">
     <BookCard
       :key="book.id"
       :book="book"
-      v-for="book in store.books.reverse()"
+      v-for="book in store.books"
       :singleBook="false"
     />
   </div>
@@ -33,7 +33,7 @@ export default {
       services
         .getBook()
         .then((res) => res.json())
-        .then((response) => store.addBooks(response))
+        .then((response) => store.addBooks(response.reverse()))
         .catch((err) => console.log(err));
     },
     onAddBook() {
@@ -48,7 +48,7 @@ export default {
     services
       .getAuthors()
       .then((res) => res.json())
-      .then((response) => store.addAuthors(response));
+      .then((response) => store.addAuthors(response.reverse()));
   },
 };
 </script>

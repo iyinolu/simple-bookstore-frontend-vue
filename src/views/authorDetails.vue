@@ -3,7 +3,7 @@
     <AuthorCard :singleAuthor="true" :author="store.author" />
   </div>
   <div class="go-back">
-    <button @click="onGoBack()">Go Back</button>
+    <button @click="onGoBack">Go Back</button>
   </div>
 </template>
 

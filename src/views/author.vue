@@ -1,13 +1,13 @@
 <template>
   <div class="app-actions">
-    <button @click="toAuthorForm()">Add Author</button>
-    <button @click="toBooks()">View Books</button>
+    <button @click="toAuthorForm">Add Author</button>
+    <button @click="toBooks">View Books</button>
   </div>
   <div class="book-list">
     <AuthorCard
       :key="author.id"
       :author="author"
-      v-for="author in store.authors.reverse()"
+      v-for="author in store.authors"
       :singleAuthor="false"
     />
   </div>
@@ -39,15 +39,7 @@ export default {
       services
         .getAuthors()
         .then((res) => res.json())
-        .then((response) => store.addAuthors(response));
-      //   try {
-      //     let response = await fetch(
-      //       "https://simple-bookstore-test.herokuapp.com/api/author"
-      //     );
-      //     store.addAuthors(await response.json());
-      //   } catch (error) {
-      //     console.log(error);
-      //   }
+        .then((response) => store.addAuthors(response.reverse()));
     },
   },
   created() {

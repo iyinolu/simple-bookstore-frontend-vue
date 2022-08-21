@@ -1,7 +1,7 @@
 <template>
   <form class="form">
     <div class="go-back">
-      <button @click="onGoBack()">Go Back</button>
+      <button @click="onGoBack">Go Back</button>
     </div>
     <fieldset>
       <label>Firstname</label>
@@ -14,7 +14,7 @@
       <span v-if="errorMsg.lastname">{{ errorMsg.lastname }}</span>
     </fieldset>
 
-    <button @click="addAuthor()" type="button">Add Author</button>
+    <button @click="addAuthor" type="button">Add Author</button>
   </form>
 </template>
 

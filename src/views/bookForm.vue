@@ -1,7 +1,7 @@
 <template>
   <form class="form">
     <div class="go-back">
-      <button @click="onGoBack()">Go Back</button>
+      <button @click="onGoBack">Go Back</button>
     </div>
     <fieldset>
       <label>Book Title</label>
@@ -19,7 +19,7 @@
         <option disabled value="">Please select an author</option>
         <option
           :key="author.id"
-          v-for="author in store.authors.reverse()"
+          v-for="author in store.authors"
           :value="author.id"
         >
           {{ `${author.first_name} ${author.last_name}` }}

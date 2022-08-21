@@ -3,7 +3,7 @@
     <BookCard :singleBook="true" :book="store.book" />
   </div>
   <div class="go-back">
-    <button @click="onGoBack()">Go Back</button>
+    <button @click="onGoBack">Go Back</button>
   </div>
 </template>
 
