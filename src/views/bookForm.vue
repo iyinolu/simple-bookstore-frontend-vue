@@ -111,7 +111,8 @@ export default {
   max-width: 346px;
   margin: 0 auto;
 }
-input {
+input,
+select {
   font-size: 16px;
 }
 input,
