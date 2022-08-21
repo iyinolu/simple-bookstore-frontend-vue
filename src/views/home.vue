@@ -28,7 +28,9 @@ export default {
   methods: {
     async getBooks() {
       try {
-        let response = await fetch("http://127.0.0.1:8000/api/book");
+        let response = await fetch(
+          "https://simple-bookstore-test.herokuapp.com/api/book"
+        );
         this.bookList = await response.json();
       } catch (error) {
         console.log(error);

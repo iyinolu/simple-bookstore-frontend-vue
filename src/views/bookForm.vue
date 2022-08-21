@@ -77,17 +77,20 @@ export default {
       console.log(this.validate());
       if (this.validate()) {
         try {
-          let response = await fetch("http://127.0.0.1:8000/api/book", {
-            method: "POST",
-            body: JSON.stringify({
-              name: this.name,
-              isbn: this.isbn,
-              author_id: parseInt(this.author),
-            }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
+          let response = await fetch(
+            "https://simple-bookstore-test.herokuapp.com/api/book",
+            {
+              method: "POST",
+              body: JSON.stringify({
+                name: this.name,
+                isbn: this.isbn,
+                author_id: parseInt(this.author),
+              }),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
           this.bookList = await response.json();
         } catch (error) {
           console.log(error);
